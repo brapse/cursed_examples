@@ -1,0 +1,24 @@
+Word reduction:
+===============
+Takes a dictionary of words and produces a list of sequential sub words
+
+Requirements
+============
+- node.js
+- cursed (installed in ../../cursed)
+
+Run
+===
+- node server_master
+- node client.js
+
+Benchmarks
+==========
+500 words: node client.js 4  0.15s user 0.02s system 0% cpu 35.158 total
+500 words (INDEXED) node client.js 4  0.13s user 0.02s system 6% cpu 2.287 total
+
+Whole dictionary (RAW): node client.js 4  9.12s user 0.69s system 0% cpu 44:12.29 total
+Success:
+Whole dictionary (INDEXED)node client.js 4  6.82s user 0.20s system 4% cpu 2:36.35 total
+Whole Dictionary (binary_search): node client.js 4  5.35s user 0.15s system 66% cpu 8.267 total
+Whole Dictionary (binary_search, no printing): node client.js 4  0.28s user 0.08s system 27% cpu 1.341 total
