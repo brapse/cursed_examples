@@ -1,4 +1,4 @@
-// Executes a cursed job
+// Runs a job
 
 var sys = require('sys'),
    http = require('http'),
@@ -17,7 +17,7 @@ if(!jobs_name){
 }
 
 // Get the function representing the task
-var job = require('./jobs')[job_name]
+var job = require('./jobs')[job_name];
 
 // Get access to the cluster
 var router = new (cursed.Router.connection)('127.0.0.1', 8000);

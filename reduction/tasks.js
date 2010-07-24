@@ -57,11 +57,11 @@ var reduce = function(word){
 
 // ########################################################
 
-this.reduce = function(args, cluster){
+this.reduce = function (args) {
     this.emit(args['words'].map(function(word) { return reduce(word)} ));
 };
 
-this.reduce.setup = function(){
+this.reduce.setup = function () {
     var that = this;
     fs.readFile('/usr/share/dict/words', 'utf8', function(err, text) {
         if(err) throw err;

@@ -1,4 +1,4 @@
-// Create  a process that sends jobs to a server and returns the result
+// Create a process that sends jobs to a server and returns the result
 var sys = require('sys'),
    http = require('http'),
     fs  = require('fs'),
