@@ -10,4 +10,4 @@ var         ip = process.argv[2],
           port = process.argv[3],
    task_module = process.argv[4];
 
-new(cursed.Worker)(ip, port, __dirname + '/' + task_module).start();
+new(cursed.Worker)(ip, port, task_module).start();

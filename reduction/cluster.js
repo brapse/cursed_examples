@@ -1,20 +1,22 @@
 // Start a new cluster on this machine
 
 var           sys = require('sys'),
-             path = require('path'),
-    child_process = require('child_process');
+             path = require('path');
 
 require.paths.unshift(path.join(__dirname, '..', '..', 'cursed', 'lib'));
 var cursed = require('cursed');
 
-if(arguments.length != 5) {
-    sys.puts('missing arguments, required host port and jobs module');
-    exit(1);
-}
+var       host = process.argv[2] || '127.0.0.1',
+          port = process.argv[3] || 8001,
+   task_module = process.argv[4] || 'tasks';
 
-var         ip = process.argv[2],
-          port = process.argv[3],
-   task_module = process.argv[4];
+var task_module_location = __dirname + '/' + task_module;
+cursed.debug(require(task_module_location));
 
 var concurrency = 4;
-new(cursed.Cluster)(concurrency, task_module, '127.0.0.1', port);
+var cluster = new(cursed.Cluster)(concurrency, task_module_location, host, port);
+
+//// TODO: app configuration
+var router = new(cursed.Connection)('127.0.0.1', 8000);
+
+cluster.register(router);
