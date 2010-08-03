@@ -1,4 +1,4 @@
-// Start a new cluster on this machine
+// Start a new node on this machine
 
 var sys = require('sys'),
    path = require('path');
@@ -13,16 +13,16 @@ var       host = process.argv[2] || '127.0.0.1',
 var task_module_location = __dirname + '/' + task_module;
 
 var concurrency = 4;
-var cluster = new(cursed.Cluster)(concurrency, task_module_location, host, port);
+var node = new(cursed.Node)(concurrency, task_module_location, host, port);
 
 //// TODO: app configuration
 var router = new(cursed.Connection)('127.0.0.1', 8000);
 
-cluster.register(router, function(err, result){
+node.register(router, function(err, result){
     if (err) {
-        sys.puts("ERROR Starting Cluster: \n" + err);
+        sys.puts("ERROR Starting Node: \n" + err);
         process.exit(0);
     }
 
-    sys.puts('Cluster started');
+    sys.puts('Node started');
 });
