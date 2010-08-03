@@ -57,8 +57,12 @@ var reduce = function(word){
 
 // ########################################################
 
-this.reduce = function (args) {
-    this.emit(args['words'].map(function(word) { return reduce(word)} ));
+this.reduce = function (args, headers, reply) {
+    if(!Array.isArray(args)){
+        reply.emit(some_words.map(function(word) { return reduce(word)} ));
+    }else{
+        reply.error(new(Error)("reduce requires and array of words as arguments"));
+    }
 };
 
 this.reduce.setup = function () {

@@ -9,4 +9,8 @@ var sys = require('sys'),
 require.paths.unshift(path.join(__dirname, '..', '..', 'cursed', 'lib'));
 var cursed = require('cursed');
 
-new(cursed.Router)('127.0.0.1', 8000).start();
+var       host = process.argv[2] || '127.0.0.1',
+          port = process.argv[3] || 8000;
+
+sys.puts('Starting a router:' + host + ':' + port);
+new(cursed.Router)(host, port).start();
