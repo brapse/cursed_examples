@@ -14,7 +14,6 @@ var binary_search = function(needle, haystack){
 
     while(start < end){
         middle = Math.floor((end - start) / 2) + start;
-        //sys.puts(start + ' ' + end + ' ' + middle);
 
         if(haystack[middle] == needle)
             return middle;
@@ -29,13 +28,15 @@ var binary_search = function(needle, haystack){
     
 }
 
+var words; //global
+
 var is_a_word = function(word){
     var found = binary_search(word.trim(), words);
     return found != -1;
 }
 
 var reduce = function(word){
-    puts("reducing: " + word);
+    console.log("reducing: " + word);
     var reductions = [word];
     var front;
     var back;
@@ -57,18 +58,23 @@ var reduce = function(word){
 
 // ########################################################
 
-this.reduce = function (args, headers, reply) {
-    if(!Array.isArray(args)){
-        reply.emit(some_words.map(function(word) { return reduce(word)} ));
+text  = fs.readFileSync('/usr/share/dict/words', 'utf8');
+words = text.split('\n').map(function(f){ return f.trim() });
+
+// ########################################################
+
+this.reduceWords = function (some_words, headers, reply) {
+    console.log('REDUCING');
+    var res;
+    if(Array.isArray(some_words)){
+        res = some_words.map(function(word) { return reduce(word)} );
+        console.log(res);
+        reply.emit(res);
     }else{
         reply.error(new(Error)("reduce requires and array of words as arguments"));
     }
 };
 
-this.reduce.setup = function () {
+this.reduceWords.setup = function () {
     var that = this;
-    fs.readFile('/usr/share/dict/words', 'utf8', function(err, text) {
-        if(err) throw err;
-        that.words = text.split('\n').map(function(f){ return f.trim() });
-    });
 }
