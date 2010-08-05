@@ -31,12 +31,11 @@ var binary_search = function(needle, haystack){
 var words; //global
 
 var is_a_word = function(word){
-    var found = binary_search(word.trim(), words);
+    var found = binary_search(word, words);
     return found != -1;
 }
 
 var reduce = function(word){
-    console.log("reducing: " + word);
     var reductions = [word];
     var front;
     var back;
@@ -52,7 +51,7 @@ var reduce = function(word){
         }
     }
 
-    return reductions.map(function(r){ return r.trim() });
+    return reductions //.map(String.prototype.trim);
 };
 
 
@@ -64,11 +63,10 @@ words = text.split('\n').map(function(f){ return f.trim() });
 // ########################################################
 
 this.reduceWords = function (some_words, headers, reply) {
-    console.log('REDUCING');
-    var res;
     if(Array.isArray(some_words)){
-        res = some_words.map(function(word) { return reduce(word)} );
-        console.log(res);
+        some_words = some_words.map(function(r) { return r.trim() });
+        var res = some_words.map(reduce);
+
         reply.emit(res);
     }else{
         reply.error(new(Error)("reduce requires and array of words as arguments"));

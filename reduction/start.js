@@ -17,4 +17,4 @@ var spawn_command = function (command, args) {
 spawn_command('router.js');
 setTimeout(function(){
     spawn_command('node.js');
-}, 2000);
+}, 1000);
