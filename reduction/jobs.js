@@ -3,7 +3,7 @@ var sys = require('sys'),
     fs  = require('fs'),
     path = require('path');
 
-require.paths.unshift(path.join(__dirname, '..', '..', 'cursed', 'lib'));
+require.paths.unshift(path.join(__dirname, '..', 'lib'));
 var cursed = require('cursed');
 
 var u = cursed.utils;
@@ -22,7 +22,6 @@ this.reduce_the_dictionary = function (router) {
                     console.log('failed: ' + err);
                 } else {
                     console.log('success!');
-                    //console.dir(results);
                 }
             });
         });

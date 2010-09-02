@@ -62,17 +62,13 @@ words = text.split('\n').map(function(f){ return f.trim() });
 
 // ########################################################
 
-this.reduceWords = function (some_words, headers, reply) {
+this.reduceWords = function (some_words, reply) {
     if(Array.isArray(some_words)){
         some_words = some_words.map(function(r) { return r.trim() });
         var res = some_words.map(reduce);
 
-        reply.emit(res);
+        reply.success(res);
     }else{
-        reply.error(new(Error)("reduce requires and array of words as arguments"));
+        reply.failure(new(Error)("reduce requires and array of words as arguments"));
     }
 };
-
-this.reduceWords.setup = function () {
-    var that = this;
-}
